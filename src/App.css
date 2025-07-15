@@ -1,1 +1,24 @@
 /* write your css here */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html , body {
+    overflow-x: hidden;
+    
+}
+
+.homepage_bg{
+  background-image: url("./assets//images/3d-background-with-white-cubes.jpg");
+  background-size: cover; /* This will make the image cover the entire element */
+  background-position: center; /* This centers the image */
+  background-repeat: no-repeat;
+  
+}
+
+/* .sandeep{
+  background: linear-gradient(135deg , rgb(5, 252, 149) , rgba(247, 5, 5, 0));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  
+} */
