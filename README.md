@@ -1,31 +1,50 @@
-# React & Tailwind CSS Starter Pack
+# StudyFlux – A React & Tailwind CSS Starter Project 🚀
 
-This is a starter pack for creating React projects with Tailwind CSS configured. It uses React version **18.2** and Tailwind CSS version **3.2**.
+**StudyFlux** is a scalable and developer-friendly boilerplate designed for building modern React applications with Tailwind CSS. It comes pre-configured with key libraries and a clean structure, helping you ship production-grade apps faster.
 
-## Usage
+---
 
-This starter pack includes a basic setup for using **Tailwind CSS with React**. To start building your own components and styles, follow these steps:
+## ✨ Features
 
-1. Clone the repository to your local machine.
-    ```sh
-    git clone https://github.com/thepranaygupta/react-tailwind-css-starter-pack.git
-    ```
+- ✅ Tailwind CSS + React setup out of the box
+- ✅ Redux Toolkit for global state management
+- ✅ Authentication-ready layout
+- ✅ Toast notifications via `react-hot-toast`
+- ✅ Routing with `react-router-dom`
+- ✅ Pre-configured ESLint and Prettier support
+- ✅ Server + Client concurrently configured
+- ✅ Responsive components and layout
+- ✅ Modular folder structure for scalability
 
-1. Install the required packages.
-    ```sh
-    cd react-tailwind-css-starter-pack
-    npm install
-    ```
+---
 
-1. Start the development server.
-    ```sh
-    npm start
-    ```
-1. Open the project in your browser at [`http://localhost:3000`](http://localhost:3000) to view your project.
-1. Create your React components and add your styles using Tailwind classes. You can also create new CSS files and import them into your components.
+## 🧠 Tech Stack
 
-The project is set up to use `postcss-cli` to process your CSS files. You can add your own `tailwind.config.js` file to customize your Tailwind setup.
+- ⚛️ **React** v19
+- 🌬️ **Tailwind CSS** v3
+- 🔁 **Redux Toolkit**
+- 🔥 **React Hot Toast**
+- 🎥 **Framer Motion**
+- 🌐 **React Router v7**
+- 📦 **Express + File Uploads + Cloudinary** (Optional server included)
 
-## Contributing
+---
 
-Contributions are welcome! If you have any suggestions or find any issues, please feel free to open an issue or a pull request.
+## ⚙️ Prerequisites
+
+Ensure you have the following installed on your machine:
+
+- [Node.js](https://nodejs.org/) >= 16
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+- [Git](https://git-scm.com/)
+
+---
+
+## 🛠️ Getting Started
+
+Follow these steps to set up the project on your local machine:
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Harinarayan-patidar/StudyFlux-project.git
