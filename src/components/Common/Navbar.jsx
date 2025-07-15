@@ -82,7 +82,7 @@ function Navbar() {
 
            <Link className='flex flex-row items-center justify-center py-2' to ="/">
               <img src={logoImg} alt="image_logo"  height={40} width={40}/>
-              <span className='text-white text-2xl'>StudyNotion</span>
+              <span className='text-yellow-400 text-2xl font-bold'>Study</span ><span className='text-green-500 text-2xl font-bold'>Flux</span>
            </Link>
              
           <nav>

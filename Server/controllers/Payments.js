@@ -7,6 +7,7 @@ const mailSender = require('../utils/mailSender');
 const emailTemplate = require('../config/enrollmentMail');
 const { default: toast } = require('react-hot-toast');
 const CourseProgress = require("../models/CourseProgress"); // Make sure it's imported
+const paymentSuccessTemplate = require('../config/paymentSuccessTemplate'); // Import the payment success template
 
 // Helper: Normalize courses input (array or single string)
 const normalizeCoursesInput = (input) => {
@@ -237,7 +238,7 @@ exports.sendPaymentSuccessEmail = async (req, res) => {
     await mailSender(
       user.email,
       'Payment Successful',
-      `Your payment of ₹${amount / 100} has been successfully processed.\nPayment ID: ${paymentId}\nOrder ID: ${orderId}\nThank you for your purchase!`
+       paymentSuccessTemplate(user.firstName, amount, paymentId, orderId)
     );
 
     console.log(`[sendPaymentSuccessEmail] Payment success email sent to: ${user.email}`);

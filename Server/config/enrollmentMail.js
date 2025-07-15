@@ -28,7 +28,7 @@ const emailTemplate = (name, courseName) => `
     </tr>
     <tr>
       <td style="background-color: #f0f0f0; color: #888888; font-size: 12px; text-align: center; padding: 16px;">
-        © ${new Date().getFullYear()} SANDEEP Academy. All rights reserved.
+        © ${new Date().getFullYear()} SANDEEP Academy|| STUDYFLUX. All rights reserved.
       </td>
     </tr>
   </table>
