@@ -6,7 +6,7 @@ const Course = require("../models/Course");
 const Category = require("../models/Category");
 const User = require("../models/User");
 const {uploadImageToCloudinary}= require("../utils/imageUploader");
-const { default: toast } = require("react-hot-toast");
+
 const CourseProgress = require("../models/CourseProgress");
 const { convertSecondsToDuration } = require("../utils/convertSecondToDuration");
 const SubSection = require("../models/SubSection");
