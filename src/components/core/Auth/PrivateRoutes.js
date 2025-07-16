@@ -1,7 +1,7 @@
 // src/components/core/Auth/PrivateRoutes.jsx
 import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
-import { useEffect } from "react";
+
 import React from "react";
 
 const PrivateRoute = () => {

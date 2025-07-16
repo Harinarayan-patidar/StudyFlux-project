@@ -8,7 +8,7 @@ import { toast } from 'react-hot-toast';
 
 function CourseReviewModal({ setReviewModal }) {
   const { user } = useSelector((state) => state.profile);
-  const { token } = useSelector((state) => state.auth);
+  
   const { courseEntireData } = useSelector((state) => state.viewCourse);
 
   const [loading, setLoading] = useState(false);

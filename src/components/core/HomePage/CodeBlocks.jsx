@@ -1,6 +1,6 @@
 import React from 'react'
 import CTAButton from '../Button'
-import HighlightText from './HighlightText'
+
 import { TiArrowRightOutline } from "react-icons/ti";
 import { TypeAnimation } from 'react-type-animation';
 

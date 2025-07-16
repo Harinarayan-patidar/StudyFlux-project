@@ -1,6 +1,5 @@
 import {apiConnector} from '../apiconnector';
-import { CourseDetails } from "../apis";
-import { studentEndpoints } from "../apis";
+
 import { toast } from "react-hot-toast";
 import { Course } from '../apis'; // Assuming this imports all your endpoint constants
 

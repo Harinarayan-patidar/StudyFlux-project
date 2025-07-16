@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromCart, resetCart } from "../Slices/cartSlice";
+import { removeFromCart } from "../Slices/cartSlice";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { getCourseDetails } from "../services/operations/courseAPI";

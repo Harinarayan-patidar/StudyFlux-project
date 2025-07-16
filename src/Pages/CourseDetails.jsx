@@ -9,7 +9,7 @@ import GetAvgRating from '../utils/averageRating';
 import CourseDetailsCard from '../components/core/Course/CourseDetailsCard';
 
 import ConfirmationModal from '../components/Common/ConfirmationModal';
-import { Course } from '../services/apis';
+
 
 function CourseDetails() {
   const navigate = useNavigate();

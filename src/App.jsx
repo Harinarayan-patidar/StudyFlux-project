@@ -23,7 +23,7 @@ import AboutUs from "./Pages/Aboutus";
 import ContactUs from "./Pages/ContactUs";
 import Setting from "./Pages/Setting";
 import { getUserDetails } from "./services/operations/profileAPI";
-import { setUser, setUserProfile } from "./Slices/profileSlice";
+import { setUserProfile } from "./Slices/profileSlice";
 
 function App() {
   const dispatch = useDispatch();

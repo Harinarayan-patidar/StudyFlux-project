@@ -3,8 +3,6 @@ import { Authentication } from "../apis";
 import { toast } from "react-hot-toast";
 import { ProfileDetails } from "../apis";
 import { isTokenExpired } from "../autoDeleteToken"; // Import your token expiration utility
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
 
 
 // Extract the API endpoints
