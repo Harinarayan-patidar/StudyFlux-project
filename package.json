@@ -60,7 +60,6 @@
     "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/typography": "^0.5.16",
     "concurrently": "^9.1.2",
-    "tailwind-scrollbar": "^4.0.2",
     "tailwindcss": "^3.4.1",
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-safe-area": "^0.8.0"
