@@ -20,8 +20,6 @@ function CourseDetails() {
   const loading = useSelector((state) => state.auth.loading);
 
   const [confirmationModal, setConfirmationModal] = useState(null);
-  const [isActive, setIsActive] = useState([]);
-
   const [courseDetails, setCourseDetails] = useState(null);
 
   useEffect(() => {
@@ -102,7 +100,6 @@ function CourseDetails() {
     instructor,
     studentsEnrolled,
     category,
-    // createdAt, // not used
     whatYouWillLearn,
   } = courseDetails;
 
@@ -136,21 +133,18 @@ function CourseDetails() {
         </div>
       </div>
 
-      <div>
-        <p>What You Will Learn</p>
+      <div className="mt-10">
+        <p className="text-2xl font-semibold mb-2">What You Will Learn</p>
         <div>{whatYouWillLearn}</div>
       </div>
 
       <div className="mt-10 mx-3">
-        <div><p>Course Content</p></div>
+        <div><p className="text-xl font-semibold mb-2">Course Content</p></div>
         <div className="flex gap-16 mt-2">
           <div className="flex">
             <div><span>{courseContent.length} section(s)</span></div>
-            <p>,</p>
+            <p className="mx-1">,</p>
             <div>{totalNumberofLectures} lectures</div>
-          </div>
-          <div className="mx-5" onClick={() => setIsActive([])}>
-            <button>Collapse all sections</button>
           </div>
         </div>
       </div>

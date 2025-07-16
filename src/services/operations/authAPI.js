@@ -1,7 +1,7 @@
 import {apiConnector} from '../apiconnector';
 import { Authentication } from "../apis";
 import { toast } from "react-hot-toast";
-import { ProfileDetails } from "../apis";
+
 import { isTokenExpired } from "../autoDeleteToken"; // Import your token expiration utility
 
 
