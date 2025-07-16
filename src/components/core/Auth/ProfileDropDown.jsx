@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserDetails } from "../../../services/operations/profileAPI";
 import { MdArrowDropDownCircle } from "react-icons/md";
-import SidebarMenu from "../../Common/SidebarMenu"; // Ensure SidebarMenu is a default export
-import { setUserProfile } from "../../../Slices/profileSlice"; // Import your Redux action
+import { useNavigate } from "react-router-dom";
+import { logout } from "../../../services/operations/authAPI";
+import { setUserProfile } from "../../../Slices/profileSlice";
 
 function ProfileDropDown() {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -20,20 +23,10 @@ function ProfileDropDown() {
         setLoading(false);
         return;
       }
-      // Inside fetchProfile()
-try {
-  const data = await getUserDetails();
-  setProfile(data);
-  dispatch(setUserProfile(data)); // store it in Redux
-} catch (err) {
-  setError("Failed to load profile.");
-}
-
-
       try {
         const data = await getUserDetails();
         setProfile(data);
-        console.log("Profile data:", data);
+        dispatch(setUserProfile(data));
       } catch (err) {
         setError("Failed to load profile.");
         console.error(err);
@@ -41,44 +34,66 @@ try {
         setLoading(false);
       }
     };
-
     fetchProfile();
   }, [token]);
 
-  if (!token) return null;
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen((prev) => !prev);
+  if (!token || loading) return null;
+  if (error) return <p className="text-red-500">{error}</p>;
+
+  const handleLogout = () => {
+    dispatch(logout(navigate, dispatch));
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen((prev) => !prev);
   };
 
   return (
-
-     
-
-    <div>
-      
+    <div className="relative" ref={dropdownRef}>
       <div
         className="flex items-center gap-x-2 cursor-pointer"
-        onClick={toggleSidebar}
+        onClick={toggleDropdown}
       >
         <img
-          src={profile?.data.image}
-          className="w-10 h-10 rounded-full"
+          src={profile?.image || "/default-avatar.png"}
+          className="w-10 h-10 rounded-full border border-gray-300 object-cover"
           alt="User"
         />
         <MdArrowDropDownCircle size={24} />
       </div>
 
-      <div
-       className={`fixed top-16 left-0 h-full z-50 bg-gray-400 text-richblack-900 font-bold shadow-lg w-64 transition-transform duration-300 ease-in-out ${
-            isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-       }`}
-      >
-           <SidebarMenu />
-       </div>
-
+      {isDropdownOpen && (
+        <div className="absolute right-0 mt-2 w-48 bg-white text-black shadow-lg rounded-lg z-50">
+          <button
+            onClick={() => {
+              navigate("/dashboard/my-profile");
+              setIsDropdownOpen(false);
+            }}
+            className="block w-full px-4 py-2 text-left hover:bg-gray-100"
+          >
+            Dashboard
+          </button>
+          <button
+            onClick={handleLogout}
+            className="block w-full px-4 py-2 text-left hover:bg-gray-100 text-red-500"
+          >
+            Logout
+          </button>
+        </div>
+      )}
     </div>
   );
 }

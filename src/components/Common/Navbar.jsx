@@ -1,35 +1,34 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import logoImg from '../../assets/images/logo.png'
-import { NavbarLinks } from '../../data/navbar-link'
-import { useLocation } from 'react-router-dom'
-import { matchPath } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation, matchPath } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { FaShoppingCart } from "react-icons/fa";
-import ProfileDropDown from '../core/Auth/ProfileDropDown'
 import { IoIosArrowDown } from "react-icons/io";
+import logoImg from '../../assets/images/logo.png';
+import ProfileDropDown from '../core/Auth/ProfileDropDown';
+import { NavbarLinks } from '../../data/navbar-link';
 import { Categories } from '../../services/apis';
-import { apiConnector } from '../../services/apiconnector'
- import { useDispatch } from 'react-redux';
- import { logout } from '../../services/operations/authAPI'
-import { isTokenExpired } from '../../services/autoDeleteToken' // Import your token expiration utility
-import { CgProfile } from "react-icons/cg";
-
+import { apiConnector } from '../../services/apiconnector';
+import { logout } from '../../services/operations/authAPI';
+import { isTokenExpired } from '../../services/autoDeleteToken';
 
 function Navbar() {
- 
-  // remove the token if expires
   const dispatch = useDispatch();
+  const location = useLocation();
+
+  const { token } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.profile);
+  const { totalItems } = useSelector((state) => state.cart);
+
+  const [subLinks, setSubLinks] = useState([]);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
-  
     if (storedToken && isTokenExpired(storedToken)) {
       localStorage.removeItem("token");
-      dispatch(logout()); // update Redux
+      dispatch(logout());
     }
-  
-    // Optional: check every 5 seconds
+
     const interval = setInterval(() => {
       const currentToken = localStorage.getItem("token");
       if (currentToken && isTokenExpired(currentToken)) {
@@ -37,154 +36,109 @@ function Navbar() {
         dispatch(logout());
       }
     }, 5000);
-  
+
     return () => clearInterval(interval);
   }, [dispatch]);
-  
-    
-      // continue main code
-      const {token} = useSelector((state)=> state.auth);
-      const {user} = useSelector((state)=> state.profile );
-      const {totalItems} = useSelector((state)=> state.cart);
-      const location =  useLocation();
 
-      
-      // API CALLL
-      const [subLinks , setSubLinks] = useState([]);
-
-      const fetchSubLinks = async()=>{
-        try {
-              const result = await apiConnector("GET", Categories.CATEGORIES_API)
-              console.log("printing sublinks result", result);
-               setSubLinks(result.data.data)
-        
-            } catch (error) {
-              console.log(error);
-              console.log("could not fetch the category link")
-            }
-          }
-
-      useEffect(()=>{
-        fetchSubLinks();
-      },[])
-
-    
-    const matchRoute = (route) =>{
-      return(
-           matchPath( {path:route}, location.pathname) 
-        )
+  const fetchSubLinks = async () => {
+    try {
+      const result = await apiConnector("GET", Categories.CATEGORIES_API);
+      setSubLinks(result.data.data);
+    } catch (error) {
+      console.error("Could not fetch category links", error);
     }
- 
-   
-    return (
- <div className=' h-14   border-b-[1px] justify-center border-blue-50 items-center  '>
-        <div className='flex w-11/12 items-center mx-auto justify-between max-w-[80%]  '>
+  };
 
-           <Link className='flex flex-row items-center justify-center py-2' to ="/">
-              <img src={logoImg} alt="image_logo"  height={40} width={40}/>
-              <span className='text-yellow-400 text-2xl font-bold'>Study</span ><span className='text-green-500 text-2xl font-bold'>Flux</span>
-           </Link>
-             
-          <nav>
-            <ul className='flex flex-row gap-4 text-white '>
-                {
-                    NavbarLinks.map((link ,index)=>{
-                        return(
-                            <li key={index}>
-                            {
-                                link.title === "Catalog" ? (
-                                    <div className='cursor-pointer flex items-center gap-1 group relative'>
-                                      <p className=' text-richblack-50 '>
-                                        {link.title}
-                                      </p>
-                                      <IoIosArrowDown></IoIosArrowDown>
-                                      
-                                      <div className='invisible opacity-0 absolute left-[50%] top-[50%]
-                                        translate-x-[-80%] translate-y-[50%] 
-                                        flex flex-col rounded-md bg-gray-100 p-4 text-richblack-900 transition-all
-                                        duration-200 group-hover:visible group-hover:opacity-100 lg:w-[250px]
-                                      '>
-                                         <div className='absolute left-[70%]  h-6 w-6 rotate-45 
-                                           duration-200  translate-x-[90%] top-0  bg-gray-100'>
-                                         </div>
+  useEffect(() => {
+    fetchSubLinks();
+  }, []);
 
-                                          {
-                                            subLinks.length? (
-                                              
-                                                subLinks.map((subLink , index)=>(
-                                                 <Link to={`/catalog/${subLink._id}`} key={index}>
-                                                    <p>{subLink.name}</p>
-                                                 </Link>
+  const matchRoute = (route) => {
+    return matchPath({ path: route }, location.pathname);
+  };
 
-                                                ))
-                                              
-                                            ): (<div> No course Found </div>)
-                                          }
+  return (
+    <header className='border-b border-blue-50 bg-black text-white z-50'>
+      <div className='flex flex-wrap items-center justify-between max-w-7xl mx-auto px-4 py-3 md:py-4'>
+        {/* Logo */}
+        <Link to="/" className='flex items-center space-x-2'>
+          <img src={logoImg} alt="StudyFlux Logo" className='w-10 h-10' />
+          <h1 className='text-2xl font-bold'>
+            <span className='text-yellow-400'>Study</span>
+            <span className='text-green-500'>Flux</span>
+          </h1>
+        </Link>
 
-                                      </div>
-                                     
+        {/* Hamburger for mobile */}
+        <button
+          className='md:hidden text-white focus:outline-none'
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          ☰
+        </button>
 
-                                    </div>
-                                ):(
-                                    <Link to={link?.path}>
-                                       <p className={`${matchRoute(link?.path)? "text-yellow-400":"text-richblack-50"}`}>
-                                        { link.title}
-                                        </p>
-                                    </Link>
-                                )
-                            }
-                        </li>
-                        )
-                    })
-                }   
-            </ul>
-          </nav>
+        {/* Nav Links */}
+        <nav className={`w-full md:w-auto md:flex md:items-center ${menuOpen ? 'block' : 'hidden'} md:block mt-4 md:mt-0`}>
+          <ul className='flex flex-col md:flex-row gap-4 md:gap-6'>
+            {NavbarLinks.map((link, index) => (
+              <li key={index}>
+                {link.title === "Catalog" ? (
+                  <div className='relative group'>
+                    <div className='flex items-center cursor-pointer gap-1'>
+                      <p>{link.title}</p>
+                      <IoIosArrowDown />
+                    </div>
+                    <div className='absolute left-1/2 transform -translate-x-1/2 mt-2 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all bg-gray-100 text-black p-4 rounded-md shadow-lg z-40 w-60'>
+                      {subLinks.length ? (
+                        subLinks.map((subLink, idx) => (
+                          <Link key={idx} to={`/catalog/${subLink._id}`} className='block py-1 px-2 hover:bg-gray-200 rounded'>
+                            {subLink.name}
+                          </Link>
+                        ))
+                      ) : (
+                        <div>No course found</div>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <Link to={link?.path} className={`${matchRoute(link?.path) ? "text-yellow-400" : "text-white"}`}>
+                    {link.title}
+                  </Link>
+                )}
+              </li>
+            ))}
+          </ul>
 
-           {/* {login , Signup , Dashboard } */}
-           <div className='flex gap-x-4 items-center text-richblack-25 '>
-               {
-                 user &&  user?.accountType !== "Instructor" && (
-                     <Link to="/dashboard/cart" className='relative'>
-                         <FaShoppingCart/>
-                         {
-                            totalItems>0 && (
-                                <span>
-                                     {totalItems}
-                                </span>
-                            )
-                         }
-                     </Link>
-                 )
-               }  
+          {/* Right Side Buttons */}
+          <div className='mt-4 md:mt-0 md:ml-6 flex items-center gap-4'>
+            {user && user?.accountType !== "Instructor" && (
+              <Link to="/dashboard/cart" className='relative'>
+                <FaShoppingCart className='text-xl' />
+                {totalItems > 0 && (
+                  <span className='absolute -top-2 -right-2 bg-yellow-400 text-black text-xs rounded-full px-1'>
+                    {totalItems}
+                  </span>
+                )}
+              </Link>
+            )}
 
-               {
-                 token === null && (
-                    <Link to="/login">
-                       <button className='border border-blue-25 rounded-xl shadow-blue-200 shadow-md px-2 py-1'>Log in</button>
-                    </Link>
-                 )
-               }
-               {
-                 token === null && (
-                    <Link to="/signup">
-                       <button className='border border-blue-25 rounded-xl shadow-blue-200 shadow-md px-2 py-1'>
-                          Signup
-                       </button>
-                    </Link>
-                 )
-               }
-               
-                  
-               
-               {
-                 token!==null && <ProfileDropDown/>
-
-               }
-           </div>
-
-        </div>
-    </div>
-  )
+            {!token ? (
+              <>
+                <Link to="/login">
+                  <button className='border border-blue-400 rounded px-3 py-1'>Log in</button>
+                </Link>
+                <Link to="/signup">
+                  <button className='border border-blue-400 rounded px-3 py-1'>Signup</button>
+                </Link>
+              </>
+            ) : (
+              <ProfileDropDown />
+            )}
+          </div>
+        </nav>
+      </div>
+    </header>
+  );
 }
 
-export default Navbar
+export default Navbar;

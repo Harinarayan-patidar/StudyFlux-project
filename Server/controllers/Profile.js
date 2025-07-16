@@ -1,11 +1,12 @@
 const Course = require("../models/Course");
 const Profile = require("../models/Profile");
 const User = require("../models/User")
+const { uploadImageToCloudinary } = require("../utils/imageUploader");
 
 exports.updateProfile = async (req , res)=>{
     try {
         // get data + user id
-        const {dateOfBirt="" , about="", contactNumber , gender} = req.body;
+        const {dateOfBirth="" , about="", contactNumber , gender} = req.body;
         const id = req.user.id;
         // validate
         if(!contactNumber || !gender){
@@ -19,7 +20,7 @@ exports.updateProfile = async (req , res)=>{
          const profileId = await userDetails.additionalDetails ;
          const profileDetails =  await Profile.findById(profileId);
          // update profile
-         profileDetails.dateOfBirth = dateOfBirt;
+         profileDetails.dateOfBirth = dateOfBirth;
          profileDetails.about = about;
          profileDetails.gender = gender;
          profileDetails.contactNumber = contactNumber;
@@ -146,3 +147,46 @@ exports.instructorDashboard = async (req, res) => {
         
     }
 }
+
+// controllers/Profile.js
+
+
+
+exports.updateDisplayPicture = async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    // Check file
+    if (!req.files || !req.files.image) {
+      return res.status(400).json({
+        success: false,
+        message: "No image file uploaded",
+      });
+    }
+
+    const file = req.files.image;
+
+    // Upload to Cloudinary
+    const uploadResult = await uploadImageToCloudinary(file, "StudyFlux/ProfileImages");
+
+    // Update user document with Cloudinary URL
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { image: uploadResult.secure_url },
+      { new: true }
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: "Profile picture updated successfully",
+      data: updatedUser,
+    });
+  } catch (error) {
+    console.error("Error updating profile picture:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error while updating profile picture",
+      error: error.message,
+    });
+  }
+};

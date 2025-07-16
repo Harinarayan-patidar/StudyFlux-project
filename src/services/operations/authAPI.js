@@ -113,7 +113,9 @@ if (token && isTokenExpired(token)) {
         localStorage.setItem("user", JSON.stringify(response.data.user));
 
         toast.success("Login successful");
+        console.log("✅ Navigating to /dashboard/my-profile");
         navigate("/dashboard/my-profile");
+    
 
     } catch (error) {
         toast.error("Login failed");

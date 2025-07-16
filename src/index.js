@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
+import App from "./App.jsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { configureStore } from '@reduxjs/toolkit'; // Import configureStore
 import { Provider } from 'react-redux'; 
 import rootReducer from "./reducer/index.js";
 import  { Toaster } from 'react-hot-toast';
-import { AuthProvider } from "./components/core/Auth/AuthContext";
+import { AuthProvider } from "./components/core/Auth/AuthContext.js";
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));

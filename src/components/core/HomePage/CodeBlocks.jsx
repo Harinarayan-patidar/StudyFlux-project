@@ -10,6 +10,7 @@ function CodeBlocks({
 }) {
   return (
     <div className={`flex ${position}  my-10 justify-between  gap-10 mx-auto w-[70%] ` }>
+       
         {/* section 1 */}
         <div className='w-[50%] flex flex-col gap-3 ' >
             <div >{heading}</div>

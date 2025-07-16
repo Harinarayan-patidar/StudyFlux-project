@@ -15,7 +15,6 @@ function EnrolledCourses() {
         const courseList = result.data;
         setCourses(courseList);
 
-        // Fetch progress for each course
         const progressPromises = courseList.map((course) =>
           getCourseProgress(course._id)
         );
@@ -68,12 +67,12 @@ function EnrolledCourses() {
     return <p className="text-center mt-6 text-white text-lg">Loading enrolled courses...</p>;
 
   return (
-    <div className="p-6 w-11/12 mx-auto min-h-screen rounded-lg">
-      <h2 className="text-3xl font-bold mb-8 text-center text-white">Your Enrolled Courses</h2>
+    <div className="p-4 sm:p-6 w-full max-w-6xl mx-auto min-h-screen rounded-lg">
+      <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center text-white">Your Enrolled Courses</h2>
       {courses.length === 0 ? (
         <p className="text-center text-white">No enrolled courses found.</p>
       ) : (
-        <div className="grid grid-cols-1 gap-6">
+        <div className="grid grid-cols-1 gap-4 sm:gap-6">
           {courses.map((course) => {
             const progress = progressMap[course._id] || {
               completed: 0,
@@ -85,10 +84,10 @@ function EnrolledCourses() {
               <div
                 key={course._id}
                 onClick={() => handleCourseClick(course)}
-                className="cursor-pointer flex items-center gap-6 border border-gray-700 bg-gray-800 p-4 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-blue-500/30"
+                className="cursor-pointer flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 border border-gray-700 bg-gray-800 p-4 rounded-lg shadow-lg transition-all duration-300 transform hover:scale-[1.02] hover:shadow-blue-500/30"
               >
                 {/* Thumbnail */}
-                <div className="flex-shrink-0 w-28 h-20 overflow-hidden rounded-md border border-gray-600">
+                <div className="w-full sm:w-28 h-32 sm:h-20 overflow-hidden rounded-md border border-gray-600">
                   <img
                     src={course.thumbnail}
                     alt={course.courseName}
@@ -98,15 +97,15 @@ function EnrolledCourses() {
 
                 {/* Course Info */}
                 <div className="flex-1 text-white">
-                  <h3 className="text-xl font-semibold">{course.courseName}</h3>
-                  <p className="text-sm text-gray-300">{course.courseDescription}</p>
-                  <p className="text-sm text-gray-400 mt-1">
+                  <h3 className="text-lg sm:text-xl font-semibold">{course.courseName}</h3>
+                  <p className="text-sm text-gray-300 line-clamp-2">{course.courseDescription}</p>
+                  <p className="text-xs text-gray-400 mt-1">
                     Lectures: {progress.total}, Completed: {progress.completed}
                   </p>
                 </div>
 
                 {/* Progress Bar */}
-                <div className="w-1/3">
+                <div className="w-full sm:w-1/3">
                   <p className="text-sm text-gray-200 mb-1">Progress</p>
                   <div className="w-full h-4 bg-gray-700 rounded-full overflow-hidden">
                     <div

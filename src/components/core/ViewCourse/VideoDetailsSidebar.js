@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 
 const VideoDetailsSidebar = ({ setReviewModal }) => {
   const [activeStatus, setActiveStatus] = useState("");
   const [videoBarActive, setVideoBarActive] = useState("");
   const navigate = useNavigate();
-  const { sectionId, subSectionId } = useParams();
   const location = useLocation();
+  const { sectionId, subSectionId } = useParams();
 
   const {
     courseSectionData = [],
@@ -36,44 +37,64 @@ const VideoDetailsSidebar = ({ setReviewModal }) => {
   }, [courseSectionData, courseEntireData, location.pathname]);
 
   return (
-    <div className="p-4 bg-richblack-800 text-white">
-      {/* Header */}
-      <div className="mb-4">
-        <div className="flex justify-between items-center mb-2">
-          <button onClick={() => navigate("/my-courses")}>← Back</button>
-          <button onClick={() => setReviewModal(true)}>Add Review</button>
+    <div className="h-full overflow-y-auto px-4 py-3 bg-black text-white scrollbar-thin scrollbar-thumb-yellow-300">
+      {/* Header Section */}
+      <div className="mb-5 space-y-2">
+        <div className="flex justify-between items-center">
+          <button
+            onClick={() => navigate("/my-courses")}
+            className="text-sm text-yellow-400 hover:underline"
+          >
+            ← Back to Courses
+          </button>
+          <button
+            onClick={() => setReviewModal(true)}
+            className="bg-yellow-400 text-black text-sm px-3 py-1 rounded-md font-semibold hover:bg-yellow-300 transition"
+          >
+            Add Review
+          </button>
         </div>
-
-        <div>
-          <p className="font-bold">{courseEntireData?.courseName || "Course Title"}</p>
-          <p>
-            {completedLectures.length} / {totalNoOfLectures}
+        <div className="space-y-1">
+          <p className="font-bold text-lg truncate">
+            {courseEntireData?.courseName || "Course Title"}
+          </p>
+          <p className="text-sm text-richblack-200">
+            {completedLectures.length} / {totalNoOfLectures} Completed
           </p>
         </div>
       </div>
 
-      {/* Sections & SubSections */}
+      {/* Section and SubSection List */}
       <div className="space-y-4">
         {courseSectionData.map((section, index) => (
           <div key={index}>
-            {/* Section Title */}
+            {/* Section Title Toggle */}
             <div
-              className="cursor-pointer font-semibold"
-              onClick={() => setActiveStatus(section._id)}
+              className="flex justify-between items-center cursor-pointer px-2 py-2 bg-richblack-700 rounded-md hover:bg-richblack-600 transition-all"
+              onClick={() =>
+                setActiveStatus(activeStatus === section._id ? "" : section._id)
+              }
             >
-              {section.sectionName}
+              <span className="font-semibold text-yellow-400">
+                {section.sectionName}
+              </span>
+              {activeStatus === section._id ? (
+                <FiChevronUp className="text-yellow-300" />
+              ) : (
+                <FiChevronDown className="text-yellow-300" />
+              )}
             </div>
 
-            {/* Subsections */}
+            {/* Subsection List */}
             {activeStatus === section._id && (
-              <div className="ml-4 mt-2 space-y-2">
-                {section.subSection.map((topic, subIndex) => (
+              <div className="mt-2 space-y-1 pl-3 border-l border-yellow-400">
+                {section?.subSection?.map((topic, subIndex) => (
                   <div
                     key={subIndex}
-                    className={`flex items-center gap-2 p-2 rounded-md cursor-pointer ${
+                    className={`flex items-center gap-2 px-3 py-2 rounded-md cursor-pointer group transition-all duration-200 ${
                       videoBarActive === topic._id
-                        ? "bg-yellow-400 text-richblack-900"
-                        : "bg-black text-white"
+                        ? "bg-yellow-400 text-black font-bold"
+                        : "hover:bg-richblack-800 text-white"
                     }`}
                     onClick={() => {
                       navigate(
@@ -86,8 +107,9 @@ const VideoDetailsSidebar = ({ setReviewModal }) => {
                       type="checkbox"
                       checked={completedLectures.includes(topic._id)}
                       readOnly
+                      className="accent-yellow-400"
                     />
-                    <span>{topic.title}</span>
+                    <span className="truncate">{topic.title}</span>
                   </div>
                 ))}
               </div>

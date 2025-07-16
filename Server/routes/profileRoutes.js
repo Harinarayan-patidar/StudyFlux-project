@@ -5,7 +5,7 @@ const{
     updateProfile,
     deleteAccount,
     getAllUserDetails,
-
+    updateDisplayPicture
 }  = require("../controllers/Profile");
 
 // delete user account
@@ -18,5 +18,9 @@ router.get("/test", (req, res) => {
   router.get("/getAllUserDetailsTest", (req, res) => {
     res.json({ success: true, message: "This route works!" });
   });
+
+// Cloudinary-based upload uses express-fileupload, no multer needed
+router.put("/updateDisplayPicture", auth, updateDisplayPicture);
+
 
 module.exports = router;

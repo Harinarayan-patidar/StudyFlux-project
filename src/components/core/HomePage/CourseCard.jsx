@@ -1,49 +1,42 @@
-import React from 'react'
-import { IoPeopleSharp } from "react-icons/io5";
-import { IoBook } from "react-icons/io5";
-function CourseCard({cardData ,currentCard ,  setCurrentCard }) {
-    const { heading, description, level, lessonNumber } = cardData;
-   
+import React from 'react';
+import { IoPeopleSharp, IoBook } from "react-icons/io5";
+
+function CourseCard({ cardData, currentCard, setCurrentCard }) {
+  const { heading, description, level, lessionNumber } = cardData;
+
+  const isActive = currentCard === heading;
+
   return (
     <div
-      className={`w-[25%]  ${
-        currentCard === cardData?.heading
-          ? "bg-white  text-richblack-200  shadow shadow-yellow-300"
-          : "bg-richblack-300 text-richblack-25 rounded-sm transition-all duration-200"
-      }  w-[25%] max-h-[250px] cursor-pointer text-start`}
-      onClick={() => setCurrentCard(cardData?.heading)}
-       >
-          <div className='flex flex-col gap-4 justify-between h-full  p-4 w-fit '> 
-              <div className={`${ currentCard === cardData?.heading && "text-richblack-800 font-semibold text-xl"}`}>
-                  {cardData.heading}
-              </div>
+      onClick={() => setCurrentCard(heading)}
+      className={`w-full sm:w-[48%] md:w-[30%] lg:w-[23%] max-h-[280px] p-4 cursor-pointer rounded-md transition-all duration-200 ${
+        isActive
+          ? "bg-white text-richblack-200 shadow shadow-yellow-300"
+          : "bg-richblack-300 text-richblack-25"
+      }`}
+    >
+      <div className="flex flex-col justify-between h-full gap-4">
+        <h3 className={`text-lg sm:text-xl ${isActive && "text-richblack-800 font-semibold"}`}>
+          {heading}
+        </h3>
 
-              <div className='max-w-[250px] mb-1'>{cardData.description}</div>
-            
-              <div className='flex flex-row justify-between   items-center'>
-                   <div className={`flex flex-row gap-2 ${ currentCard === cardData?.heading? "text-green-800 items-center": 
-                    "text-richblack-25 items-center"
-                   }`} >
-                     <IoPeopleSharp />
-                       {cardData.level}   
-                   </div>
+        <p className="text-sm leading-snug line-clamp-3">{description}</p>
 
-                   <div className={`flex flex-row gap-2 ${ currentCard === cardData?.heading? "text-green-800 items-center": 
-                    "text-richblack-25 items-center "
-                   }`} >
-                     < IoBook/>
-                       {cardData.lessionNumber}<span className='font-semibold'>lessions</span>   
-                   </div>
-                  
-
-              </div>
-
+        <div className="flex justify-between items-center text-sm">
+          <div className={`flex items-center gap-2 ${isActive ? "text-green-800" : "text-richblack-25"}`}>
+            <IoPeopleSharp />
+            {level}
           </div>
 
-        
-
+          <div className={`flex items-center gap-1 ${isActive ? "text-green-800" : "text-richblack-25"}`}>
+            <IoBook />
+            {lessionNumber}
+            <span className="font-semibold ml-1">lessons</span>
+          </div>
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
-export default CourseCard
+export default CourseCard;

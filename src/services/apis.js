@@ -18,7 +18,9 @@ export const Authentication ={
 
 export const ProfileDetails ={
     USER_DETAILS: BASE_URL + "/profile/getAllUserDetails",
-    
+    UPDATE_USER_PROFILE: BASE_URL + "/profile/updateProfile",
+    UPDATE_DISPLAY_PICTURE: BASE_URL + "/profile/updateDisplayPicture", 
+    DELETE_PROFILE: BASE_URL + "/profile/deleteProfile",
 }
 
 // export const Course = {

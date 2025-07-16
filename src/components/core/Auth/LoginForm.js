@@ -1,67 +1,63 @@
-import { useState } from "react"
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
-import { useDispatch } from "react-redux"
-import { Link, useNavigate } from "react-router-dom"
-import { login } from "../../../services/operations/authAPI"
-import { toast } from "react-hot-toast" // Importing toast for error handling
+import { useState } from "react";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { login } from "../../../services/operations/authAPI";
+import { toast } from "react-hot-toast";
 
 function LoginForm() {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  })
-  const [showPassword, setShowPassword] = useState(false)
-  const [error, setError] = useState("") // Local state for error message
-  const { email, password } = formData
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+
+  const { email, password } = formData;
 
   const handleOnChange = (e) => {
-    setFormData((prevData) => ({
-      ...prevData,
+    setFormData((prev) => ({
+      ...prev,
       [e.target.name]: e.target.value,
-    }))
-  }
+    }));
+  };
 
   const handleOnSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    setError("");
+
     try {
-      // Reset error message before attempting login
-      setError("")
-      await dispatch(login(email, password, navigate))
+      await login(email, password, navigate);
     } catch (err) {
-      setError("Invalid email or password.") // Set error message if login fails
-      toast.error("Invalid email or password.") // Optional toast message
+      setError("Invalid email or password.");
+      toast.error("Invalid email or password.");
     }
-  }
+  };
 
   return (
     <form
       onSubmit={handleOnSubmit}
-      className="mt-6 flex w-full flex-col gap-y-4"
+      className="mt-6 w-full max-w-md flex flex-col gap-y-5"
     >
-      {/* Email Input */}
+      {/* Email Field */}
       <label className="w-full">
-        <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
+        <p className="mb-1 text-sm text-richblack-5">
           Email Address <sup className="text-pink-200">*</sup>
         </p>
         <input
           required
-          type="email" // Change to email for better validation
+          type="email"
           name="email"
           value={email}
           onChange={handleOnChange}
           placeholder="Enter email address"
-          style={{
-            boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
-          }}
-          className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] text-richblack-5"
+          className="w-full rounded-md bg-richblack-800 p-3 text-sm text-richblack-5 outline-none"
         />
       </label>
 
-      {/* Password Input */}
-      <label className="relative">
-        <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">
+      {/* Password Field */}
+      <label className="w-full relative">
+        <p className="mb-1 text-sm text-richblack-5">
           Password <sup className="text-pink-200">*</sup>
         </p>
         <input
@@ -71,42 +67,35 @@ function LoginForm() {
           value={password}
           onChange={handleOnChange}
           placeholder="Enter Password"
-          style={{
-            boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18)",
-          }}
-          className="w-full rounded-[0.5rem] bg-richblack-800 p-[12px] pr-12 text-richblack-5"
+          className="w-full rounded-md bg-richblack-800 p-3 pr-12 text-sm text-richblack-5 outline-none"
         />
         <span
           onClick={() => setShowPassword((prev) => !prev)}
-          className="absolute right-3 top-[38px] z-[10] cursor-pointer"
+          className="absolute right-3 top-[39px] z-10 cursor-pointer"
         >
           {showPassword ? (
-            <AiOutlineEyeInvisible fontSize={24} fill="#AFB2BF" />
+            <AiOutlineEyeInvisible fontSize={22} fill="#AFB2BF" />
           ) : (
-            <AiOutlineEye fontSize={24} fill="#AFB2BF" />
+            <AiOutlineEye fontSize={22} fill="#AFB2BF" />
           )}
         </span>
         <Link to="/forgot-password">
-          <p className="mt-1 ml-auto max-w-max text-xs text-blue-100">
-            Forgot Password?
-          </p>
+          <p className="mt-1 text-xs text-blue-100 text-right">Forgot Password?</p>
         </Link>
       </label>
 
-      {/* Display Error Message if exists */}
-      {error && (
-        <p className="text-red-500 text-sm">{error}</p> // Show error message
-      )}
+      {/* Error Message */}
+      {error && <p className="text-red-400 text-sm">{error}</p>}
 
       {/* Submit Button */}
       <button
         type="submit"
-        className="mt-6 rounded-[8px] bg-yellow-50 py-[8px] px-[12px] font-medium text-richblack-900 hover:bg-yellow-100 focus:outline-none focus:ring-2 focus:ring-yellow-200"
+        className="mt-4 rounded-md bg-yellow-50 py-2 px-4 font-medium text-richblack-900 hover:bg-yellow-100 transition"
       >
         Sign In
       </button>
     </form>
-  )
+  );
 }
 
-export default LoginForm
+export default LoginForm;

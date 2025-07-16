@@ -1,10 +1,10 @@
-const { heroui } = require('@heroui/theme');
+// const { heroui } = require('@heroui/theme');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
-    "./node_modules/@heroui/theme/dist/components/(card|ripple).js"
+    // "./node_modules/@heroui/theme/dist/components/(card|ripple).js"
   ],
   theme: {
     fontFamily: {
@@ -85,7 +85,7 @@ module.exports = {
   },
 
   plugins: [
-    heroui(),
+    // heroui(),
 
     // ✅ Useful Tailwind Plugins
     require("@tailwindcss/forms"),         // For better input/form control styling

@@ -9,7 +9,7 @@ const paymentSuccessTemplate = (name, amount, paymentId, orderId) => {
       <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
         <tr>
           <td style="padding: 8px; font-weight: bold;">Amount Paid:</td>
-          <td style="padding: 8px;">₹${(amount / 100).toFixed(2)}</td>
+          <td style="padding: 8px;">₹${(amount ).toFixed(2)}</td>
         </tr>
         <tr>
           <td style="padding: 8px; font-weight: bold;">Payment ID:</td>

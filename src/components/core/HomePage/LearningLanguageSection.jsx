@@ -7,41 +7,51 @@ import CTAButton from "../Button"
 
 function LearningLanguageSection() {
   return (
-    <div>
-       <div className='flex flex-col gap-5 mt-[130px] mb-5'>
-            <div className='text-4xl font-bold text-center tracking-tight'>
-                Your Swiss Knief For 
-                <HighlightText className="font-extrabold" text={"Learning Any Language"}></HighlightText>
-            </div>
-            <div className='text-center text-richblack-300 mx-auto text-base w-[70%]'>
-                Lorem ipsum dolor sit, amet consectetur adipi necessitatibus consequatur
-                 provident impedit. Culpa corpor reiciendis. Accusantium
-            </div>
-            <div className='flex flex-row items-center justify-center mt-5'>
-               <img 
-                  src={Know_your_progress}
-                  alt='Know_your_progress'
-                  className='object-contain h-[280] w-[280px] -mr-24'
-                  />
-                  <img 
-                  src={Compare_with_others}
-                  alt='Compare_with_others'
-                  className='object-contain  h-[320px] w-[340px] -mr-20'
-                />
-                <img 
-                  src={Plan_your_lessons}
-                  alt='Plan_your_lessons'
-                  className='object-contain  h-[300px] w-[300px]'
-                />
-            </div>
+    <div className='mt-20 mb-10 px-4'>
+      <div className='flex flex-col gap-6 items-center'>
 
-           <div className='items-center self-center'>
-             <CTAButton active={true} linkto={"/signup"} >
-              <div>Learn More</div> 
-              </CTAButton>
+        {/* Heading */}
+        <h2 className='text-2xl sm:text-3xl lg:text-4xl font-bold text-center tracking-tight'>
+          Your Swiss Knife For
+          <HighlightText className="font-extrabold" text={" Learning Any Language"} />
+        </h2>
 
-           </div>
-       </div>
+        {/* Subheading */}
+        <p className='text-center text-richblack-300 text-sm sm:text-base max-w-2xl'>
+          Lorem ipsum dolor sit, amet consectetur adipi necessitatibus consequatur
+          provident impedit. Culpa corpor reiciendis. Accusantium
+        </p>
+
+        {/* Image Row */}
+        <div className='flex flex-col sm:flex-row items-center justify-center gap-6 mt-6'>
+
+          <img
+            src={Know_your_progress}
+            alt='Know your progress'
+            className='object-contain h-[220px] sm:h-[260px] w-auto'
+          />
+
+          <img
+            src={Compare_with_others}
+            alt='Compare with others'
+            className='object-contain h-[240px] sm:h-[280px] w-auto'
+          />
+
+          <img
+            src={Plan_your_lessons}
+            alt='Plan your lessons'
+            className='object-contain h-[220px] sm:h-[260px] w-auto'
+          />
+
+        </div>
+
+        {/* CTA Button */}
+        <div className='mt-6'>
+          <CTAButton active={true} linkto={"/signup"}>
+            <div>Learn More</div>
+          </CTAButton>
+        </div>
+      </div>
     </div>
   )
 }

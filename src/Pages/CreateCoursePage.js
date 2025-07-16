@@ -117,6 +117,7 @@ export default function CreateCoursePage() {
           console.log("Subsection FormData prepared:", subFormDataDebug);
 
           const subsectionRes = await createSubsection(subsectionFormData);
+          
           console.log(`Subsection creation response for "${sub.title}":`, subsectionRes);
 
           if (!subsectionRes?.success) {
@@ -125,7 +126,7 @@ export default function CreateCoursePage() {
           toast.success(`Subsection "${sub.title}" added!`);
         }
       }
-
+      console.log("every thing done")
       toast.success("Course and all its content created successfully!");
       // Optionally: Redirect the user to the course details page or dashboard
       // navigate(`/dashboard/my-courses/${courseId}`);

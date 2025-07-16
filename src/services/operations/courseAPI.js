@@ -344,7 +344,7 @@ export async function updateCourseProgress(courseId, subSectionId) {
 }
 
 
-export async function getCourseProgress(courseId) {
+export async function getCourseProgress(courseId, silent = false) {
   const token = localStorage.getItem("token");
   try {
     const response = await apiConnector(
