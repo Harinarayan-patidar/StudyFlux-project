@@ -43,7 +43,7 @@ const VideoDetails = () => {
 
     console.log("Current Video Data:", currentVideo);
     console.log("Video URL:", currentVideo?.videoUrl);
-  }, [courseSectionData, location.pathname]);
+  }, [courseSectionData, location.pathname, courseId, sectionId, subSectionId, navigate]);
 
   const isFirstVideo = () => {
     const sectionIndex = courseSectionData.findIndex(

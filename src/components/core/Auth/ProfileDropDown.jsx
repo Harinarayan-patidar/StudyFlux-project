@@ -35,7 +35,7 @@ function ProfileDropDown() {
       }
     };
     fetchProfile();
-  }, [token]);
+  }, [token, dispatch]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {

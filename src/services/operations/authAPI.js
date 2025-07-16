@@ -7,10 +7,10 @@ import { isTokenExpired } from "../autoDeleteToken"; // Import your token expira
 
 // Extract the API endpoints
 const { SIGNUP_API, LOGIN_API, SEND_OTP_API,
-    CHANGEPASSWORD_API, RESETPASSWORDTOKEN_API,
+     RESETPASSWORDTOKEN_API,
     RESETPASSWORD_API } = Authentication;
 
-const {USER_DETAILS } = ProfileDetails;
+// const {USER_DETAILS } = ProfileDetails;
 
 // Sending OTP
 export const sendOTP = async (email, navigate) => {
@@ -101,9 +101,9 @@ if (token && isTokenExpired(token)) {
 
         console.log("Login API response:", response);
 
-        const userImage = response.data?.user?.image
-            ? response.data.user.image
-            : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.user.firstName} ${response.data.user.lastName}`;
+        // const userImage = response.data?.user?.image
+        //     ? response.data.user.image
+        //     : `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.user.firstName} ${response.data.user.lastName}`;
 
         // Dispatch user data and token (assuming you're using Redux)
       //   dispatch(setUser({ ...response.data.user, image: userImage }));

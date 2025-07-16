@@ -34,7 +34,7 @@ const VideoDetailsSidebar = ({ setReviewModal }) => {
 
     setActiveStatus(courseSectionData?.[currentSectionIndex]?._id);
     setVideoBarActive(activeSubSectionId);
-  }, [courseSectionData, courseEntireData, location.pathname]);
+  }, [courseSectionData, courseEntireData, location.pathname,sectionId, subSectionId]);
 
   return (
     <div className="h-full overflow-y-auto px-4 py-3 bg-black text-white scrollbar-thin scrollbar-thumb-yellow-300">

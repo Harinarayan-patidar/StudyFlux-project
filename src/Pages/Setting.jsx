@@ -12,7 +12,6 @@ import {
 
 export default function Setting() {
   const navigate = useNavigate();
-  const [userData, setUserData] = useState(null);
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
   const [formData, setFormData] = useState({
@@ -22,12 +21,10 @@ export default function Setting() {
     gender: "",
   });
 
-  // Load user details
   useEffect(() => {
     (async () => {
       try {
         const user = await getUserDetails();
-        setUserData(user);
         setFormData({
           dateOfBirth: user?.additionalDetails?.dateOfBirth
             ? user.additionalDetails.dateOfBirth.split("T")[0]
@@ -47,21 +44,20 @@ export default function Setting() {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleProfileSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const payload = {
-      ...formData,
-      dateOfBirth: formData.dateOfBirth
-        ? new Date(formData.dateOfBirth).toISOString()
-        : "",
-    };
-    await updateUserProfile(payload);
-    toast.success("Profile updated successfully");
-  } catch (error) {
-    toast.error("Profile update failed");
-  }
-};
-
+    e.preventDefault();
+    try {
+      const payload = {
+        ...formData,
+        dateOfBirth: formData.dateOfBirth
+          ? new Date(formData.dateOfBirth).toISOString()
+          : "",
+      };
+      await updateUserProfile(payload);
+      toast.success("Profile updated successfully");
+    } catch (error) {
+      toast.error("Profile update failed");
+    }
+  };
 
   const handleImageUpload = async () => {
     if (!image) return toast.error("Please select an image first");
@@ -134,7 +130,7 @@ export default function Setting() {
               />
               <button
                 onClick={handleImageUpload}
-                className="mt-2 px-4 py-2 bg-yellow-500 text-black hover:bg-cyan-600  rounded"
+                className="mt-2 px-4 py-2 bg-yellow-500 text-black hover:bg-cyan-600 rounded"
               >
                 Upload Image
               </button>

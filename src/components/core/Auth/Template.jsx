@@ -4,7 +4,7 @@ import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 
 function Template({ title, description1, description2, image, formType }) {
-  const [loading, setLoading] = useState(false);
+  const [loading] = useState(false);
 
   return (
     <div className="w-full flex justify-center items-center min-h-screen bg-richblack-900">
