@@ -109,8 +109,8 @@ function FooterHome() {
         </div>
         <div className="flex items-center gap-2 text-sm">
           <p className="flex items-center gap-2">
-            Made with <FaHeart className="text-red-500" /> by Sandeep{" "}
-            <FaCopyright /> 2025 StudyNotion
+            Made with <FaHeart className="text-red-500" /> by Harinarayan{" "}
+            <FaCopyright /> 2025 StudyFlux
           </p>
         </div>
       </div>
