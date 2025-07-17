@@ -54,16 +54,25 @@ const VerifyEmail = () => {
 
           <form onSubmit={handleOnSubmit}>
             <OTPInput
-              className="w-full p-6 bg-white text-white"
               value={otp}
               onChange={setOtp}
               numInputs={6}
               renderSeparator={<span className="text-white">-</span>}
-              renderInput={(props) => (
-                <span className="rounded-xl mx-auto px-[2px] py-[2px] bg-white">
-                  <input {...props} className="bg-richblack-800" />
-                </span>
-              )}
+              inputStyle={{
+                width: "40px", // Adjust individual input width
+                height: "40px", // Adjust individual input height
+                margin: "0 5px", // Spacing between inputs
+                fontSize: "18px", // Font size of the OTP digits
+                borderRadius: "8px", // Slightly rounded corners for the input fields
+                border: "1px solid #333", // A subtle border
+                backgroundColor: "#161D29", // A darker background for the input fields
+                color: "#F1F2F3", // Light text color for the OTP digits
+              }}
+              containerStyle={{
+                justifyContent: "space-between", // Distribute inputs evenly
+                margin: "20px 0", // Margin around the whole OTP input group
+              }}
+              renderInput={(props) => <input {...props} />} // Simplified renderInput
             />
             <button
               type="submit"
