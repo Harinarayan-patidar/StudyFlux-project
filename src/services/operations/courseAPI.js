@@ -210,7 +210,7 @@ export async function createCategory(categoryData) {
 export async function getCategoryPageDetails(categoryId) {
   try {
     const response = await fetch(
-      `http://localhost:4000/api/v1/course/getCategoryPageDetails?categoryId=${categoryId}`
+      `https://studyflux-project.onrender.com/api/v1/course/getCategoryPageDetails?categoryId=${categoryId}`
     );
     const data = await response.json();
     console.log("Category Page Details:", data);
