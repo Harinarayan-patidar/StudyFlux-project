@@ -1,6 +1,6 @@
 
 
-const BASE_URL = "https://studyflux-project.onrender.com"
+const BASE_URL = "https://studyflux-project.onrender.com/api/v1"
 
 export const Categories ={
     CATEGORIES_API : BASE_URL + "/course/showAllCategory",
