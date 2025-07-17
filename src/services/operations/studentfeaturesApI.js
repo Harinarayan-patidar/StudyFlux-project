@@ -160,7 +160,7 @@ export async function verifyPayment(paymentData, token, navigate, dispatch) {
 
         if (response.status === 200) {
             toast.success("Payment verified successfully!");
-            navigate("/dashboard/mycourses");
+            navigate("/dashboard/enrolled-courses");
             dispatch({ type: "PAYMENT_VERIFIED", payload: response.data });
             dispatch(resetCart());
         } else {
