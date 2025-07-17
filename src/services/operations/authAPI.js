@@ -99,7 +99,7 @@ if (token && isTokenExpired(token)) {
             return { success: false };
         }
 
-        console.log("Login API response:", response);
+        
 
         // const userImage = response.data?.user?.image
         //     ? response.data.user.image
