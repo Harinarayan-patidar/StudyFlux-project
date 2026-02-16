@@ -22,12 +22,30 @@ database.connect();
 // add middlewares
 app.use(express.json());
 app.use(cookieParser());
+
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://studyflux.netlify.app"
+];
+
 app.use(
-    cors({
-        origin:["http://localhost:3000","https://studyflux.netlify.app"],
-        credentials:true,
-    })
-)
+  cors({
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      } else {
+        return callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
+
+// Handle preflight requests
+app.options("*", cors());
+
 
 app.use(
     fileUpload({
