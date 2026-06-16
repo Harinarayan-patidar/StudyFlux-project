@@ -1,15 +1,32 @@
 // mailSender.js
-const { Resend } = require("resend");
-require("dotenv").config();
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+require("dotenv").config();
+const nodemailer = require("nodemailer");
 
 const mailSender = async (email, title, body) => {
   try {
-    console.log("Preparing to send email...");
+    console.log("==================================================");
+    console.log("📨 Preparing to send email...");
+    console.log("📧 Receiver:", email);
+    console.log("📝 Subject:", title);
+    console.log("==================================================");
 
-    const response = await resend.emails.send({
-      from: "StudyFlux <onboarding@resend.dev>",
+    // Create transporter using SMTP
+    const transporter = nodemailer.createTransport({
+      host: process.env.MAIL_HOST, // smtp.gmail.com
+      port: 587,
+      secure: false, // true for 465, false for other ports
+      auth: {
+        user: process.env.MAIL_USER, // your gmail
+        pass: process.env.MAIL_PASS, // app password
+      },
+    });
+
+    console.log("🚀 Transporter created successfully");
+
+    // Send email
+    const info = await transporter.sendMail({
+      from: `"StudyFlux" <${process.env.MAIL_USER}>`,
       to: email,
       subject: title,
       html: `
@@ -45,11 +62,16 @@ const mailSender = async (email, title, body) => {
       `,
     });
 
-    console.log("Email sent successfully:", response);
-    return response;
+    console.log("✅ Email sent successfully");
+    console.log("📨 Mail Response:", info);
+    console.log("==================================================");
+
+    return info;
 
   } catch (error) {
-    console.error("Error sending email:", error);
+    console.log("❌ Error while sending email");
+    console.error(error);
+    console.log("==================================================");
     throw error;
   }
 };
