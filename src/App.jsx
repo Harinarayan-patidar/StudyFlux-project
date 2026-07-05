@@ -24,6 +24,9 @@ import ContactUs from "./Pages/ContactUs";
 import Setting from "./Pages/Setting";
 import { getUserDetails } from "./services/operations/profileAPI";
 import { setUserProfile } from "./Slices/profileSlice";
+import VideoAI from "./components/core/AI/VideoAI";
+import InstructorDashboard from "./components/core/Instructor/InstructorDashboard";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -75,6 +78,7 @@ function App() {
             <Route path="AllCourses" element={<ALLCourses />} />
             <Route path="setting" element={<Setting />} />
             <Route path="settings" element={<Setting />} />
+            <Route path="/dashboard/instructor-profile" element={<InstructorDashboard />}/>
           </Route>
         </Route>
       </Routes>

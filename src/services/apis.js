@@ -1,6 +1,7 @@
 
 
-const BASE_URL = "https://studyflux-project.onrender.com/api/v1"
+// const BASE_URL = "https://studyflux-project.onrender.com/api/v1"
+const BASE_URL = "http://localhost:4000/api/v1"
 
 export const Categories ={
     CATEGORIES_API : BASE_URL + "/course/showAllCategory",
@@ -15,6 +16,11 @@ export const Authentication ={
     RESETPASSWORD_API: BASE_URL + "/auth/resetPassword",
     
 }
+
+export const InstructorEndpoints = {
+  INSTRUCTOR_DASHBOARD_API:
+    BASE_URL + "/instructor/dashboard",
+};
 
 export const ProfileDetails ={
     USER_DETAILS: BASE_URL + "/profile/getAllUserDetails",

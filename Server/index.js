@@ -5,6 +5,8 @@ const userRoutes = require("./routes/User");
 const courseRoutes = require("./routes/Course");
 const paymentRoutes = require("./routes/Payment");
 const profileRoutes = require("./routes/profileRoutes");
+const aiRoutes = require("./routes/aiRoutes");
+const instructorRoutes = require("./routes/instructorRoutes");
 
 
 require("dotenv").config();
@@ -62,7 +64,8 @@ app.use("/api/v1/auth" , userRoutes);
 app.use("/api/v1/profile" , profileRoutes);
 app.use("/api/v1/Payment" , paymentRoutes);
 app.use("/api/v1/course" , courseRoutes);
-
+app.use("/api/v1/ai", aiRoutes );
+app.use("/api/v1/instructor",instructorRoutes);
 
 // defRoute
 app.get("/", (req,res)=>{
