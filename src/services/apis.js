@@ -1,7 +1,7 @@
 
 
-// const BASE_URL = "https://studyflux-project.onrender.com/api/v1"
-const BASE_URL = "http://localhost:4000/api/v1"
+const BASE_URL = "https://studyflux-project.onrender.com/api/v1"
+// const BASE_URL = "http://localhost:4000/api/v1"
 
 export const Categories ={
     CATEGORIES_API : BASE_URL + "/course/showAllCategory",
