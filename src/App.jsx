@@ -24,7 +24,7 @@ import ContactUs from "./Pages/ContactUs";
 import Setting from "./Pages/Setting";
 import { getUserDetails } from "./services/operations/profileAPI";
 import { setUserProfile } from "./Slices/profileSlice";
-import VideoAI from "./components/core/AI/VideoAI";
+// import VideoAI from "./components/core/AI/VideoAI";
 import InstructorDashboard from "./components/core/Instructor/InstructorDashboard";
 
 
