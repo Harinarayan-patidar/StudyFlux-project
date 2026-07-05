@@ -6,7 +6,6 @@ import {
   FiUsers,
   FiDollarSign,
   FiStar,
-  FiTrendingUp,
 } from "react-icons/fi";
 
 import StatCard from "./StatCard";
