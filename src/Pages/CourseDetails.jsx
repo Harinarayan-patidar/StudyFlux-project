@@ -529,7 +529,6 @@ function CourseDetails() {
     courseDescription,
     courseContent = [],
     ratingAndReviews = [],
-    price,
     instructor,
     studentsEnrolled = [],
     category,

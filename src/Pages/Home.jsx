@@ -8,7 +8,6 @@ import {
 
 import { TiArrowRightOutline } from "react-icons/ti";
 import {
-  FiArrowUpRight,
   FiBookOpen,
   FiCode,
   FiCpu,
